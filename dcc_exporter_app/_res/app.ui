@@ -147,7 +147,7 @@
           <string notr="true">font: 6pt &quot;MS Shell Dlg 2&quot;;</string>
          </property>
          <property name="text">
-          <string>DCC Exporter - https://github.com/mikemalinowski/dcc_exporter</string>
+          <string>Open Source DCC Export Framework (xstack)</string>
          </property>
         </widget>
        </item>
