@@ -1,8 +1,8 @@
-import qute
 import dcc_exporter
 
-from xstack_app.add import AddComponentWidget
-from xstack_app.options import ComponentEditor
+from dcc_exporter.vendor import qute
+from dcc_exporter.vendor.xstack_app.add import AddComponentWidget
+from dcc_exporter.vendor.xstack_app.options import ComponentEditor
 
 from . import config
 from . import resources

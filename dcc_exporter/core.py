@@ -1,9 +1,9 @@
 import os
 import json
 import typing
-import xstack
+from .vendor import xstack
 
-from crosswalk import app
+from .vendor.crosswalk import app
 
 from . import definition
 from . import constants

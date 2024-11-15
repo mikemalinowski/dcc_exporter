@@ -1,7 +1,7 @@
 import functools
-import qute
-import xstack_app
-from crosswalk import app
+from ..vendor import qute
+from ..vendor import xstack_app
+from ..vendor.crosswalk import app
 
 from .. import resources
 

@@ -1,5 +1,5 @@
-import qute
-from crosswalk import app
+from ..vendor import qute
+from ..vendor.crosswalk import app
 
 
 # --------------------------------------------------------------------------------------

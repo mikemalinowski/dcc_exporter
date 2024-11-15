@@ -1,5 +1,5 @@
 import os
-import qute
+from ..vendor import qute
 
 from .. import resources
 
