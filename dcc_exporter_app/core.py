@@ -6,6 +6,7 @@ from dcc_exporter.vendor.xstack_app.options import ComponentEditor
 
 from . import config
 from . import resources
+from . import uic_app
 
 
 # --------------------------------------------------------------------------------------
@@ -26,12 +27,11 @@ class ExporterWidget(qute.QWidget):
             ),
         )
 
-        self.ui = qute.utilities.designer.load(
-            resources.get("app.ui").replace("\\", "/"),
+        self.ui = uic_app.Ui_Form()
+        self.ui.setupUi(self)
 
-        )
-
-        self.layout().addWidget(self.ui)
+        # self.layout().addWidget(self.ui)
+        self.layout().addLayout(self.ui.verticalLayout_4)
 
         # -- Show the version to the user
         self.ui.version_label.setText(f"v{dcc_exporter.__version__}")
@@ -162,14 +162,6 @@ class ExporterWindow(qute.extensions.windows.MemorableWindow):
 
 # --------------------------------------------------------------------------------------
 def launch(blocking=False):
-
-    # -- Ugly hack to fix PySide6 issue on 3.12
-    try:
-        from PySide6 import QtUiTools
-        loader = QtUiTools.QUiLoader()
-
-    except:
-        pass
 
     q_app = qute.qApp()
 
