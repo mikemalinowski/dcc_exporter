@@ -1,14 +1,15 @@
 import functools
-from ..vendor import qute
-from ..vendor import xstack_app
-from ..vendor.crosswalk import app
+import qtility
+import xstack_app
+from crosswalk import app
 
+from Qt import QtWidgets, QtGui, QtCore
 from .. import resources
 
 
 # --------------------------------------------------------------------------------------
 # noinspection PyUnresolvedReferences,PyPep8Naming
-class CustomLineEdit(qute.QLineEdit):
+class CustomLineEdit(QtWidgets.QLineEdit):
 
     # ----------------------------------------------------------------------------------
     def __init__(self, default_value, component=None, *args, **kwargs):
@@ -33,12 +34,12 @@ class CustomLineEdit(qute.QLineEdit):
 
         while parent:
 
-            submenu = qute.QMenu(parent.label())
+            submenu = QtWidgets.QMenu(parent.label())
 
             for output in parent.outputs():
 
                 action = submenu.addAction(
-                    qute.QIcon(xstack_app.resources.get("address.png")),
+                    QtGui.QIcon(xstack_app.resources.get("address.png")),
                     output.name(),
                 )
 
@@ -69,12 +70,12 @@ class CustomLineEdit(qute.QLineEdit):
 
 # --------------------------------------------------------------------------------------
 # noinspection PyUnresolvedReferences
-class ObjectSelector(qute.QWidget):
+class ObjectSelector(QtWidgets.QWidget):
     """
     This is a selector field that exposes buttons to make it easier
     to fill the field based on the selection
     """
-    changed = qute.Signal()
+    changed = QtCore.Signal()
 
     # ----------------------------------------------------------------------------------
     def __init__(self, default_value="", button_size=30, component=None, parent=None):
@@ -85,8 +86,8 @@ class ObjectSelector(qute.QWidget):
 
         # -- Define our base layout
         self.setLayout(
-            qute.utilities.layouts.slimify(
-                qute.QHBoxLayout(),
+            qtility.layouts.slimify(
+                QtWidgets.QHBoxLayout(),
             ),
         )
 
@@ -112,14 +113,14 @@ class ObjectSelector(qute.QWidget):
     # ----------------------------------------------------------------------------------
     def icon_button(self, icon_path):
 
-        button = qute.QPushButton()
+        button = QtWidgets.QPushButton()
         button.setIcon(
-            qute.QIcon(
+            QtGui.QIcon(
                 icon_path,
             ),
         )
         button.setIconSize(
-            qute.QSize(
+            QtCore.QSize(
                 self._button_size,
                 self._button_size,
             ),
@@ -174,13 +175,13 @@ class ObjectSelector(qute.QWidget):
 
 # --------------------------------------------------------------------------------------
 # noinspection PyUnresolvedReferences
-class ObjectMap(qute.QWidget):
+class ObjectMap(QtWidgets.QWidget):
     """
     This allows for a key/value pairing to be made where the value is always an
     object and the key is a text string
     """
 
-    changed = qute.Signal()
+    changed = QtCore.Signal()
 
     # ----------------------------------------------------------------------------------
     def __init__(self, button_size=30, parent=None):
@@ -191,21 +192,21 @@ class ObjectMap(qute.QWidget):
 
         # -- Define our base layout
         self.setLayout(
-            qute.utilities.layouts.slimify(
-                qute.QHBoxLayout(),
+            qtility.layouts.slimify(
+                QtWidgets.QHBoxLayout(),
             ),
         )
 
         # -- Add our colour button
-        self.list_widget = qute.QListWidget()
+        self.list_widget = QtWidgets.QListWidget()
         self.layout().addWidget(self.list_widget)
 
-        self.button_layout = qute.QVBoxLayout()
+        self.button_layout = QtWidgets.QVBoxLayout()
 
-        self.add_button = qute.QPushButton("+")
-        self.remove_button = qute.QPushButton("-")
-        self.up_button = qute.QPushButton("Up")
-        self.down_button = qute.QPushButton("Dn")
+        self.add_button = QtWidgets.QPushButton("+")
+        self.remove_button = QtWidgets.QPushButton("-")
+        self.up_button = QtWidgets.QPushButton("Up")
+        self.down_button = QtWidgets.QPushButton("Dn")
 
         self.button_layout.addWidget(self.add_button)
         self.button_layout.addWidget(self.remove_button)
@@ -224,7 +225,7 @@ class ObjectMap(qute.QWidget):
     # ----------------------------------------------------------------------------------
     def _item(self, key, value):
 
-        item = qute.QListWidgetItem(f"{key} -> {value}")
+        item = QtWidgets.QListWidgetItem(f"{key} -> {value}")
         item.key_ = key
         item.value_ = value
 
@@ -236,7 +237,7 @@ class ObjectMap(qute.QWidget):
 
             item = app.objects.get_name(item)
 
-            label = qute.utilities.request.text(
+            label = qtility.request.text(
                 title="Provide Label",
                 label=f"Please give a label to assign with {item}",
                 parent=self,

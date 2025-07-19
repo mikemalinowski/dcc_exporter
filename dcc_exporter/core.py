@@ -1,9 +1,8 @@
 import os
 import json
 import typing
-from .vendor import xstack
-
-from .vendor.crosswalk import app
+import xstack
+from crosswalk import app
 
 from . import definition
 from . import constants
@@ -41,7 +40,7 @@ class Exporter(xstack.Stack):
 
         for path in paths:
             if path:
-                self.component_library.register_path(path)
+                self.component_library.add_path(path)
 
         self.deserialize(
             json.loads(

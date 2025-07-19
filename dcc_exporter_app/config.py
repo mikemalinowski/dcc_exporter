@@ -1,5 +1,5 @@
+import xstack_app
 import dcc_exporter
-from dcc_exporter.vendor import xstack_app
 
 
 class AppConfig(xstack_app.AppConfig):

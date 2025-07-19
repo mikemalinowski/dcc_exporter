@@ -1,17 +1,18 @@
 import os
-from ..vendor import qute
+import qtility
 
+from Qt import QtWidgets, QtCore, QtGui
 from .. import resources
 
 
 # --------------------------------------------------------------------------------------
 # noinspection PyUnresolvedReferences
-class FilepathSelector(qute.QWidget):
+class FilepathSelector(QtWidgets.QWidget):
     """
     This is a selector field that exposes buttons to make it easier
     to fill the field based on the selection
     """
-    changed = qute.Signal()
+    changed = QtCore.Signal()
 
     # ----------------------------------------------------------------------------------
     def __init__(self, default_value="", button_size=30, parent=None):
@@ -22,13 +23,13 @@ class FilepathSelector(qute.QWidget):
 
         # -- Define our base layout
         self.setLayout(
-            qute.utilities.layouts.slimify(
-                qute.QHBoxLayout(),
+            qtility.layouts.slimify(
+                QtWidgets.QHBoxLayout(),
             ),
         )
 
         # -- Add our colour button
-        self.text_field = qute.QLineEdit(default_value)
+        self.text_field = QtWidgets.QLineEdit(default_value)
         self.layout().addWidget(self.text_field)
 
         # -- Add the buttons
@@ -49,14 +50,14 @@ class FilepathSelector(qute.QWidget):
     # ----------------------------------------------------------------------------------
     def icon_button(self, icon_path):
 
-        button = qute.QPushButton()
+        button = QtWidgets.QPushButton()
         button.setIcon(
-            qute.QIcon(
+            QtGui.QIcon(
                 icon_path,
             ),
         )
         button.setIconSize(
-            qute.QSize(
+            QtCore.QSize(
                 self._button_size,
                 self._button_size,
             ),
@@ -66,7 +67,7 @@ class FilepathSelector(qute.QWidget):
     # ----------------------------------------------------------------------------------
     def set_filepath(self):
 
-        filepath = qute.utilities.request.filepath(
+        filepath = qtility.request.filepath(
             title="Set Export Path",
             filter_="*.fbx (*.fbx)",
             save=True,

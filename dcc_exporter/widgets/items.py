@@ -1,9 +1,9 @@
-from ..vendor import qute
+from Qt import QtWidgets, QtCore, QtGui
 
 
 # --------------------------------------------------------------------------------------
 # noinspection PyUnresolvedReferences
-class ItemSelector(qute.QComboBox):
+class ItemSelector(QtWidgets.QComboBox):
     """
     This will show a combo box with the given items for the user to select one
     """
@@ -25,7 +25,7 @@ class ItemSelector(qute.QComboBox):
 
 # --------------------------------------------------------------------------------------
 # noinspection PyUnresolvedReferences
-class LocationSelector(qute.QComboBox):
+class LocationSelector(QtWidgets.QComboBox):
     """
     This will show a combo box with the given items for the user to select one
     """
@@ -50,7 +50,7 @@ class LocationSelector(qute.QComboBox):
 
 # --------------------------------------------------------------------------------------
 # noinspection PyUnresolvedReferences
-class AxisSelector(qute.QComboBox):
+class AxisSelector(QtWidgets.QComboBox):
     """
     This will show a combo box with the given items for the user to select one
     """

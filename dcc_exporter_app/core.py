@@ -1,8 +1,9 @@
+import qtility
 import dcc_exporter
 
-from dcc_exporter.vendor import qute
-from dcc_exporter.vendor.xstack_app.add import AddComponentWidget
-from dcc_exporter.vendor.xstack_app.options import ComponentEditor
+from xstack_app.add import AddComponentWidget
+from xstack_app.options import ComponentEditor
+from Qt import QtWidgets, QtCore, QtGui
 
 from . import config
 from . import resources
@@ -11,7 +12,7 @@ from . import uic_app
 
 # --------------------------------------------------------------------------------------
 # noinspection PyUnresolvedReferences
-class ExporterWidget(qute.QWidget):
+class ExporterWidget(QtWidgets.QWidget):
 
     # ----------------------------------------------------------------------------------
     def __init__(self, parent=None):
@@ -22,8 +23,8 @@ class ExporterWidget(qute.QWidget):
 
         # -- Start building the layout
         self.setLayout(
-            qute.utilities.layouts.slimify(
-                qute.QHBoxLayout(),
+            qtility.layouts.slimify(
+                QtWidgets.QHBoxLayout(),
             ),
         )
 
@@ -58,10 +59,10 @@ class ExporterWidget(qute.QWidget):
 
         for entry in self.exporter.components():
 
-            item = qute.QListWidgetItem(entry.label())
+            item = QtWidgets.QListWidgetItem(entry.label())
 
             if entry.icon:
-                item.setIcon(qute.QIcon(entry.icon))
+                item.setIcon(QtGui.QIcon(entry.icon))
 
             item.uuid = entry.uuid()
 
@@ -84,7 +85,7 @@ class ExporterWidget(qute.QWidget):
     # ----------------------------------------------------------------------------------
     def remove(self):
 
-        confirmation = qute.utilities.request.confirmation(
+        confirmation = qtility.request.confirmation(
             title="Remove Export Entries",
             label="Are you sure?",
             parent=self,
@@ -114,7 +115,7 @@ class ExporterWidget(qute.QWidget):
 
         self.exporter.export(export_only=components_to_export)
 
-        qute.utilities.request.message(
+        qtility.request.message(
             title="Export Complete",
             label="Export Complete",
             parent=self,
@@ -141,19 +142,18 @@ class ExporterWidget(qute.QWidget):
 
 
 # --------------------------------------------------------------------------------------
-class ExporterWindow(qute.extensions.windows.MemorableWindow):
+class ExporterWindow(qtility.windows.MemorableWindow):
 
     # ----------------------------------------------------------------------------------
     def __init__(self, parent=None):
-        super(ExporterWindow, self).__init__(parent=parent, identifier="DCCExporter")
+        super(ExporterWindow, self).__init__(parent=parent, storage_identifier="DCCExporter")
 
         self.setWindowTitle("Exporter")
 
         self.setCentralWidget(ExporterWidget(parent=self))
 
-        qute.utilities.styling.apply(
+        qtility.styling.apply(
             [
-                #"space",
                 resources.get("exporter_app.css"),
             ],
             apply_to=self,
@@ -163,9 +163,9 @@ class ExporterWindow(qute.extensions.windows.MemorableWindow):
 # --------------------------------------------------------------------------------------
 def launch(blocking=False):
 
-    q_app = qute.qApp()
+    q_app = qtility.app.get()
 
-    w = ExporterWindow(parent=qute.mainWindow())
+    w = ExporterWindow(parent=qtility.windows.application())
     w.show()
 
 

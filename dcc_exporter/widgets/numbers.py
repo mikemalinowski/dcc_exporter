@@ -1,8 +1,8 @@
-from ..vendor import qute
+from Qt import QtWidgets
 
 
 # --------------------------------------------------------------------------------------
-class LimitedInteger(qute.QSpinBox):
+class LimitedInteger(QtWidgets.QSpinBox):
 
     # ----------------------------------------------------------------------------------
     def __init__(self, minimum=None, maximum=None, parent=None):

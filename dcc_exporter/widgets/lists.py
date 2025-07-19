@@ -1,20 +1,21 @@
-from ..vendor import qute
-from ..vendor.crosswalk import app
+import qtility
+from Qt import QtWidgets, QtCore, QtGui
+from crosswalk import app
 
 
 # --------------------------------------------------------------------------------------
 # noinspection PyUnresolvedReferences
-class ObjectList(qute.QWidget):
+class ObjectList(QtWidgets.QWidget):
     """
     This shows a list of items where the user can add to it and define the order
     the items appear in the list
     """
 
-    changed = qute.Signal()
-    moved_up = qute.Signal(str)
-    moved_down = qute.Signal(str)
-    removed = qute.Signal(str)
-    added = qute.Signal(qute.QListWidgetItem)
+    changed = QtCore.Signal()
+    moved_up = QtCore.Signal(str)
+    moved_down = QtCore.Signal(str)
+    removed = QtCore.Signal(str)
+    added = QtCore.Signal(QtWidgets.QListWidgetItem)
 
     # ----------------------------------------------------------------------------------
     def __init__(self, default_items=None, button_size=30, parent=None):
@@ -25,21 +26,21 @@ class ObjectList(qute.QWidget):
 
         # -- Define our base layout
         self.setLayout(
-            qute.utilities.layouts.slimify(
-                qute.QHBoxLayout(),
+            qtility.layouts.slimify(
+                QtWidgets.QHBoxLayout(),
             ),
         )
 
         # -- Add our colour button
-        self.list_widget = qute.QListWidget()
+        self.list_widget = QtWidgets.QListWidget()
         self.layout().addWidget(self.list_widget)
 
-        self.button_layout = qute.QVBoxLayout()
+        self.button_layout = QtWidgets.QVBoxLayout()
 
-        self.add_button = qute.QPushButton("+")
-        self.remove_button = qute.QPushButton("-")
-        self.up_button = qute.QPushButton("Up")
-        self.down_button = qute.QPushButton("Dn")
+        self.add_button = QtWidgets.QPushButton("+")
+        self.remove_button = QtWidgets.QPushButton("-")
+        self.up_button = QtWidgets.QPushButton("Up")
+        self.down_button = QtWidgets.QPushButton("Dn")
 
         self.button_layout.addWidget(self.add_button)
         self.button_layout.addWidget(self.remove_button)
@@ -48,11 +49,11 @@ class ObjectList(qute.QWidget):
         self.layout().addLayout(self.button_layout)
 
         self.button_layout.addSpacerItem(
-            qute.QSpacerItem(
+            QtWidgets.QSpacerItem(
                 10,
                 0,
-                qute.QSizePolicy.Expanding,
-                qute.QSizePolicy.Expanding,
+                QtCore.QSizePolicy.Expanding,
+                QtCore.QSizePolicy.Expanding,
             ),
         )
 
@@ -63,7 +64,7 @@ class ObjectList(qute.QWidget):
         if default_items:
             for item in default_items:
 
-                item = qute.QListWidgetItem(item)
+                item = QtWidgets.QListWidgetItem(item)
                 self.list_widget.addItem(item)
                 self.added.emit(item)
 
@@ -80,12 +81,11 @@ class ObjectList(qute.QWidget):
     # ----------------------------------------------------------------------------------
     def add(self):
         for item in app.selection.selected():
-            item = qute.QListWidgetItem(item)
+            item = QtWidgets.QListWidgetItem(item)
             self.list_widget.addItem(item)
             self.added.emit(item)
 
         self.changed.emit()
-        # self.added.emit("")
 
     # ----------------------------------------------------------------------------------
     def remove(self):
@@ -196,7 +196,7 @@ class TextList(ObjectList):
     def add(self, value=None):
 
         if not value:
-            value = qute.utilities.request.text(
+            value = qtility.request.text(
                 title="Add String",
                 label="Type in the string you want to add",
                 parent=self,
@@ -205,7 +205,7 @@ class TextList(ObjectList):
         if not value:
             return
 
-        item = qute.QListWidgetItem(value)
+        item = QtWidgets.QListWidgetItem(value)
         self.list_widget.addItem(item)
         self.added.emit(item)
         self.changed.emit()
