@@ -1,18 +1,14 @@
 # DCC Exporter
 
-The DCC Exporter is a generalised export framework that is designed to work in 
-any of the following applications:
+![Rig Image](docs/tool.png)
 
-* Maya
-* Max
-* Mobu
-* Houdini
+The DCC Exporter is a generalised export framework that is application agnostic at 
+its core. You can then implement `ExportDefinitions` within an application.
 
 The framework has the following library requirements:
-* qute
+* qtility
 * crosswalk
 * xstack
-* xstack_app
 * scribble
 * squiggle
 
@@ -28,10 +24,18 @@ options and that data will then be stored within the scene. This ensures that an
 other developer who opens that scene can export the same data out without prior 
 knowledge of how the previous user exported their data. 
 
+## Packaged Definitions
 
-# DCC Exporter App
+The exporter comes with three export definitions:
 
-The app is a Qt based frontend to make the user experience of adding, removing and 
-editing export entries within a scene easier. However the framework itself does not
-rely on Qt or a UI and can therefore be run headless or be wrapped in a different 
-UI framework.
+* Fbx Animation
+* Fbx Skeletal Mesh
+* Fbx Simple
+
+All of these require the `fbx` module. This is not provided as part of the dcc_exporter
+package.
+
+## Framework Notes
+
+This tool built entirely upon xstack https://github.com/mikemalinowski/xstack and utilises
+the factory plugin pattern for the export definitions.

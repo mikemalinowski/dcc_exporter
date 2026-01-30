@@ -49,3 +49,9 @@ class ExampleExportDefintion(dcc_exporter.ExportDefinition):
         print("exporting....")
 
         return True
+
+    def option_widget(self, option_name: str) -> "PySide6.QWidget":
+        if option_name == "Save Path":
+            return dcc_exporter.widgets.files.FilepathSelector(
+                default_value=self.option("Save Path").get(),
+            )

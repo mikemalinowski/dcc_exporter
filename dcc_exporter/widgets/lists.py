@@ -52,8 +52,8 @@ class ObjectList(QtWidgets.QWidget):
             QtWidgets.QSpacerItem(
                 10,
                 0,
-                QtCore.QSizePolicy.Expanding,
-                QtCore.QSizePolicy.Expanding,
+                QtWidgets.QSizePolicy.Expanding,
+                QtWidgets.QSizePolicy.Expanding,
             ),
         )
 

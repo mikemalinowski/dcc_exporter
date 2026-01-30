@@ -15,12 +15,14 @@ https://github.com/mikemalinowski/dcc_exporter
 from .core import Exporter
 from .definition import ExportDefinition
 
-# -- UI imports are not enforces
+# -- We do not force a hard reliance on the ui as we allow this module
+# -- to operate in a completely headless environment.
 try:
     from . import widgets
+    from . import app
+    from .app.core import launch
 
 except ImportError:
     print("running with no qt support")
-    pass
 
 __version__ = '1.0.1'

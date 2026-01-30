@@ -1,6 +1,5 @@
 import os
 import qtility
-
 from Qt import QtWidgets, QtCore, QtGui
 from .. import resources
 

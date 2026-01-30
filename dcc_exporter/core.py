@@ -1,7 +1,7 @@
 import os
 import json
-import typing
 import xstack
+import typing
 from crosswalk import app
 
 from . import definition
@@ -13,7 +13,7 @@ from . import constants
 class Exporter(xstack.Stack):
 
     # ----------------------------------------------------------------------------------
-    def __init__(self, component_paths: typing.List or None = None):
+    def __init__(self, component_paths: typing.List or None = None, *args, **kwargs) -> None:
         super(Exporter, self).__init__(
             label=constants.LABEL,
             component_paths=component_paths,
@@ -26,7 +26,7 @@ class Exporter(xstack.Stack):
             self._host = self._create_host(constants.LABEL)
 
         else:
-            self._host = app.objects.get_object("Exporter")
+            self._host = app.objects.get_object(constants.LABEL)
 
         # -- Ensure we add any paths set by the environment
         paths = os.environ.get(constants.EXPORTER_DEFINITION_PATHS_ENVVAR, "").split(",")
