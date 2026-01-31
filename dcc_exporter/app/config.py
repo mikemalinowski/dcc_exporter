@@ -12,6 +12,7 @@ class AppConfig(xstack.app.AppConfig):
     stack_class = Exporter
     show_tree_header = False
     splitter_bias = 0.4
+    show_menu_bar = False
 
     # -- These let you tailor the icons which will be displayed for various
     # -- items and actions
