@@ -24,16 +24,23 @@ options and that data will then be stored within the scene. This ensures that an
 other developer who opens that scene can export the same data out without prior 
 knowledge of how the previous user exported their data. 
 
+The framework itself has no hard dependency on a single application and can therefore
+be run in multiple dcc's. This has been tested in `Maya`, `3dsmax`, `Motion Builder`
+and `Blender` (blender requires the `bqt` module).
+
+![Rig Image](docs/cross_app_small.png)
+
 ## Packaged Definitions
 
-The exporter comes with three export definitions:
+The exporter comes with three export definitions usable in Maya:
 
 * Fbx Animation
 * Fbx Skeletal Mesh
 * Fbx Simple
 
 All of these require the `fbx` module. This is not provided as part of the dcc_exporter
-package.
+package along with the `fbxtra` package found here:
+https://github.com/mikemalinowski/fbxtra
 
 ## Framework Notes
 

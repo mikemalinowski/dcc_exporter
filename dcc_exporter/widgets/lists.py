@@ -1,6 +1,7 @@
 import qtility
+import crosswalk
 from Qt import QtWidgets, QtCore, QtGui
-from crosswalk import app
+
 
 
 # --------------------------------------------------------------------------------------
@@ -80,7 +81,7 @@ class ObjectList(QtWidgets.QWidget):
 
     # ----------------------------------------------------------------------------------
     def add(self):
-        for item in app.selection.selected():
+        for item in crosswalk.selection.selected():
             item = QtWidgets.QListWidgetItem(item)
             self.list_widget.addItem(item)
             self.added.emit(item)

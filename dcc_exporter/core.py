@@ -2,7 +2,7 @@ import os
 import json
 import xstack
 import typing
-from crosswalk import app
+import crosswalk
 
 from . import definition
 from . import constants
@@ -22,11 +22,11 @@ class Exporter(xstack.Stack):
 
 
         # -- If we're not given a host, then we need to add one
-        if not app.objects.exists(constants.LABEL):
+        if not crosswalk.items.exists(constants.LABEL):
             self._host = self._create_host(constants.LABEL)
 
         else:
-            self._host = app.objects.get_object(constants.LABEL)
+            self._host = crosswalk.items.get(constants.LABEL)
 
         # -- Ensure we add any paths set by the environment
         paths = os.environ.get(constants.EXPORTER_DEFINITION_PATHS_ENVVAR, "").split(",")
@@ -42,14 +42,14 @@ class Exporter(xstack.Stack):
             if path:
                 self.component_library.add_path(path)
 
-        self.deserialize(
-            json.loads(
-                app.attributes.get_attribute(
-                    self.host(),
-                    "exporter_data",
-                ),
-            )
+        data = crosswalk.attributes.get_value(
+            self.host(),
+            "exporter_data",
         )
+        if data:
+            self.deserialize(
+                json.loads(data)
+            )
 
         # -- As we have now populated the class, emit the fact that the class has
         # -- changed
@@ -84,7 +84,7 @@ class Exporter(xstack.Stack):
         """
         We always want to return the name of the host when getting the label
         """
-        return app.objects.get_name(self.host())
+        return crosswalk.items.get_name(self.host())
 
     # ----------------------------------------------------------------------------------
     @label.setter
@@ -102,12 +102,11 @@ class Exporter(xstack.Stack):
         """
         data = super(Exporter, self).serialise()
 
-        app.attributes.set_attribute(
-            object_=self.host(),
+        crosswalk.attributes.set_value(
+            item=self.host(),
             attribute_name="exporter_data",
             value=json.dumps(data),
         )
-
         return data
 
     # ----------------------------------------------------------------------------------
@@ -117,18 +116,18 @@ class Exporter(xstack.Stack):
         This will create the host object within the applications scene. It ensures the host
         has the right attributes to be able to store its serialised
         """
-        host = app.objects.create(
+        host = crosswalk.items.create(
             name=name,
         )
 
-        app.attributes.add_float_attribute(
-            object_=host,
+        crosswalk.attributes.add_float_attribute(
+            item=host,
             attribute_name="exporter_node",
             value=1,
         )
 
-        app.attributes.add_string_attribute(
-            object_=host,
+        crosswalk.attributes.add_string_attribute(
+            item=host,
             attribute_name="exporter_data",
             value="{}"
         )
