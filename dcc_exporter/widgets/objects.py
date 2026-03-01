@@ -30,7 +30,7 @@ class CustomLineEdit(QtWidgets.QLineEdit):
         # -- Add a separator
         menu.addSeparator()
 
-        parent = self.component.parent()
+        parent = self.component.parent
         last_menu = menu
 
         while parent:
@@ -54,10 +54,10 @@ class CustomLineEdit(QtWidgets.QLineEdit):
             last_menu.addSeparator()
             last_menu.addMenu(submenu)
 
-            parent = parent.parent()
+            parent = parent.parent
 
             # -- The last parent is the rig, so dont add that
-            if not parent.parent():
+            if not parent.parent:
                 break
 
             last_menu = submenu
